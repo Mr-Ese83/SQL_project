@@ -12,7 +12,7 @@ WITH count_posting AS(
         skills_job_dim.skill_id,
         COUNT(*) AS number_of_count
     FROM job_postings_fact
-    LEFT JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
+    INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
     GROUP BY skill_id,job_postings_fact.job_title_short
     
 )
@@ -23,7 +23,7 @@ SELECT
 FROM count_posting
 INNER JOIN skills_dim ON count_posting.skill_id = skills_dim.skill_id
 ORDER BY number_of_count DESC
-LIMIT 10;
+LIMIT 20;
 
 
 
@@ -83,7 +83,6 @@ WHERE job_title_short = 'Data Analyst' AND job_work_from_home = 'True'
 GROUP BY job_postings_fact.job_title_short,skills_dim.skills
 ORDER BY count_job DESC 
 LIMIT 10;
-
 
 
 
